@@ -10,21 +10,26 @@ export function generateStaticParams() {
   return ROOMS_ORDER.map((slug) => ({ slug }));
 }
 
-// --- Dynamic Metadata ---
-export function generateMetadata(
-  { params }: { params: { slug: RoomSlug } }
-): Metadata {
-  const room = findRoom(params.slug);
+// --- Dynamic Metadata (Next.js 15: params bir Promise) ---
+export async function generateMetadata(
+  { params }: { params: Promise<{ slug: RoomSlug }> }
+): Promise<Metadata> {
+  const { slug } = await params;
+  const room = findRoom(slug);
   if (!room) return { title: "Room | Lion Hotel" };
   const title = `${room.name} | Lion Hotel`;
   return { title, openGraph: { title, images: [room.hero] } };
 }
 
-export default function RoomPage({ params }: { params: { slug: RoomSlug } }) {
-  const room = findRoom(params.slug);
+export default async function RoomPage(
+  { params }: { params: Promise<{ slug: RoomSlug }> }
+) {
+  const { slug } = await params;
+
+  const room = findRoom(slug);
   if (!room) return notFound();
 
-  const i = ROOMS_ORDER.indexOf(params.slug);
+  const i = ROOMS_ORDER.indexOf(slug);
   const nextSlug = ROOMS_ORDER[(i + 1) % ROOMS_ORDER.length];
   const nextTitle = findRoom(nextSlug)!.name;
 
@@ -146,7 +151,7 @@ export default function RoomPage({ params }: { params: { slug: RoomSlug } }) {
           </h3>
         </div>
 
-        {/* Full‑bleed slider */}
+        {/* Full-bleed slider */}
         <div className="mt-4">
           <RoomGalleryClient images={gallery} />
         </div>
