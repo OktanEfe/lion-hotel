@@ -1,7 +1,7 @@
 // src/components/Testimonials.tsx
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, type CSSProperties } from "react";
 
 function Star({ filled }: { filled: boolean }) {
   return (
@@ -158,8 +158,12 @@ export default function Testimonials() {
             ref={railRef}
             onScroll={handleLoop}
             className="flex gap-6 md:gap-8 overflow-x-auto scroll-smooth no-scrollbar"
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            style={{ msOverflowStyle: "none", scrollbarWidth: "none" } as any}
+            style={
+              {
+                msOverflowStyle: "none", // IE/Edge
+                scrollbarWidth: "none",  // Firefox
+              } as CSSProperties
+            }
           >
             {/* küçük ön boşluk */}
             <div className="shrink-0 w-1" />
