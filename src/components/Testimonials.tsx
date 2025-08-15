@@ -1,7 +1,7 @@
 // src/components/Testimonials.tsx
 "use client";
 
-import { useEffect, useMemo, useRef, type CSSProperties } from "react";
+import { useEffect, useMemo, useRef } from "react";
 
 function Star({ filled }: { filled: boolean }) {
   return (
@@ -20,58 +20,15 @@ function Star({ filled }: { filled: boolean }) {
 type TItem = { name: string; rating: number; text: string; detail?: string };
 
 const DATA: TItem[] = [
-  {
-    name: "Ayşe K.",
-    rating: 5,
-    text:
-      "Odalar tertemiz, modern ve gerçekten çok konforluydu. Personelin yaklaşımı o kadar sıcak ki kendimizi evimizde hissettik.",
-    detail:
-      "Terasta gün batımı esnasında canlı müzik ile kokteyller muazzamdı; Çınarcık’a her gelişimizde buradayız.",
-  },
-  {
-    name: "Mert A.",
-    rating: 4,
-    text:
-      "Konum harika; plaja ve merkeze çok yakın. Geceleri Lion Teras’ın atmosferi kesinlikle deneyimlenmeli.",
-    detail:
-      "Sessiz, sakin bir uyku ve sabah taze ürünlerle zengin bir kahvaltı. Fiyat/performans çok iyi.",
-  },
-  {
-    name: "Selin D.",
-    rating: 5,
-    text:
-      "Tasarım detayları ve temizlik standardı beklentimin üzerindeydi. Resepsiyon ekibi çok ilgili.",
-    detail:
-      "İmza kokteyller favorim oldu. Fotoğraflardaki gibi şık bir ortam; özel günler için de ideal.",
-  },
-  {
-    name: "Eren Y.",
-    rating: 5,
-    text:
-      "Hafta sonu kaçamağı için tercih ettik, odalar ferah ve yatak çok rahat. Gece gürültü yoktu.",
-    detail:
-      "Otopark kolaylığı ve hızlı check-in hayat kurtardı. Kısa tatiller için birebir.",
-  },
-  {
-    name: "Ezgi T.",
-    rating: 4,
-    text:
-      "Ailece konakladık; çocuklu aileler için düşünülmüş rahatlıklar var. Kahvaltı çeşitleri başarılı.",
-    detail:
-      "Balkonlu oda tavsiye edilir; manzara eşliğinde kahve keyfi çok hoştu.",
-  },
-  {
-    name: "Burak S.",
-    rating: 5,
-    text:
-      "Butik otel sıcaklığını gerçekten hissettik. Oda detayları ve koku seçimi bile düşünülmüş.",
-    detail:
-      "Lion Teras’ta canlı müzik gecesi çok keyifliydi. Yeniden gelmeyi planlıyoruz.",
-  },
+  { name: "Ayşe K.", rating: 5, text: "Odalar tertemiz, modern ve gerçekten çok konforluydu. Personelin yaklaşımı o kadar sıcak ki kendimizi evimizde hissettik.", detail: "Terasta gün batımı esnasında canlı müzik ile kokteyller muazzamdı; Çınarcık’a her gelişimizde buradayız." },
+  { name: "Mert A.", rating: 4, text: "Konum harika; plaja ve merkeze çok yakın. Geceleri Lion Teras’ın atmosferi kesinlikle deneyimlenmeli.", detail: "Sessiz, sakin bir uyku ve sabah taze ürünlerle zengin bir kahvaltı. Fiyat/performans çok iyi." },
+  { name: "Selin D.", rating: 5, text: "Tasarım detayları ve temizlik standardı beklentimin üzerindeydi. Resepsiyon ekibi çok ilgili.", detail: "İmza kokteyller favorim oldu. Fotoğraflardaki gibi şık bir ortam; özel günler için de ideal." },
+  { name: "Eren Y.", rating: 5, text: "Hafta sonu kaçamağı için tercih ettik, odalar ferah ve yatak çok rahat. Gece gürültü yoktu.", detail: "Otopark kolaylığı ve hızlı check-in hayat kurtardı. Kısa tatiller için birebir." },
+  { name: "Ezgi T.", rating: 4, text: "Ailece konakladık; çocuklu aileler için düşünülmüş rahatlıklar var. Kahvaltı çeşitleri başarılı.", detail: "Balkonlu oda tavsiye edilir; manzara eşliğinde kahve keyfi çok hoştu." },
+  { name: "Burak S.", rating: 5, text: "Butik otel sıcaklığını gerçekten hissettik. Oda detayları ve koku seçimi bile düşünülmüş.", detail: "Lion Teras’ta canlı müzik gecesi çok keyifliydi. Yeniden gelmeyi planlıyoruz." },
 ];
 
 export default function Testimonials() {
-  // Sonsuz döngü için klonlar
   const CLONE = 2;
   const extended = useMemo(() => {
     const head = DATA.slice(-CLONE);
@@ -83,7 +40,6 @@ export default function Testimonials() {
   const firstCardRef = useRef<HTMLDivElement>(null);
   const stepRef = useRef(0);
 
-  // İlk konum: gerçek verinin başına otur
   useEffect(() => {
     const rail = railRef.current;
     const card = firstCardRef.current;
@@ -91,8 +47,6 @@ export default function Testimonials() {
 
     const gap = parseFloat(getComputedStyle(rail).gap || "24");
     stepRef.current = card.offsetWidth + gap;
-
-    // Başlangıç scrollu (head klonları kadar ileri)
     rail.scrollLeft = stepRef.current * CLONE;
 
     const onResize = () => {
@@ -103,7 +57,6 @@ export default function Testimonials() {
     return () => window.removeEventListener("resize", onResize);
   }, [extended.length]);
 
-  // Uçlarda loop
   const handleLoop = () => {
     const rail = railRef.current;
     if (!rail) return;
@@ -122,40 +75,22 @@ export default function Testimonials() {
     const rail = railRef.current;
     if (!rail) return;
     const step = stepRef.current || 360;
-    rail.scrollBy({
-      left: dir === "next" ? step : -step,
-      behavior: "smooth",
-    });
-  };
-
-  // no-explicit-any kuralını tetiklemeden scrollbar gizleme stilleri
-  type NoScrollbarStyle = CSSProperties & {
-    scrollbarWidth?: "none";
-    msOverflowStyle?: "none" | "auto";
-  };
-  const noScrollbarStyle: NoScrollbarStyle = {
-    scrollbarWidth: "none",
-    msOverflowStyle: "none",
+    rail.scrollBy({ left: dir === "next" ? step : -step, behavior: "smooth" });
   };
 
   return (
     <section className="py-16 md:py-24 bg-white">
       <div className="container">
         <div className="text-center">
-          <h2
-            className="text-[42px] md:text-[68px] leading-[1.05]"
-            style={{ fontFamily: "var(--font-playfair)" }}
-          >
+          <h2 className="text-[42px] md:text-[68px] leading-[1.05]" style={{ fontFamily: "var(--font-playfair)" }}>
             Misafir Yorumları
           </h2>
           <p className="mt-3 text-black/60 max-w-2xl mx-auto">
-            Gerçek konuk deneyimleri: konfor, lezzet ve Lion Teras’ta unutulmaz
-            anlar.
+            Gerçek konuk deneyimleri: konfor, lezzet ve Lion Teras’ta unutulmaz anlar.
           </p>
         </div>
 
         <div className="relative mt-10 md:mt-12">
-          {/* Oklar */}
           <button
             onClick={() => scroll("prev")}
             aria-label="Önceki"
@@ -168,11 +103,8 @@ export default function Testimonials() {
             ref={railRef}
             onScroll={handleLoop}
             className="flex gap-6 md:gap-8 overflow-x-auto scroll-smooth no-scrollbar"
-            style={noScrollbarStyle}
           >
-            {/* küçük ön boşluk */}
             <div className="shrink-0 w-1" />
-
             {extended.map((t, i) => (
               <div
                 key={`${t.name}-${i}`}
@@ -180,7 +112,6 @@ export default function Testimonials() {
                 ref={i === CLONE ? firstCardRef : undefined}
                 className="snap-start min-w-[300px] sm:min-w-[360px] max-w-[380px] rounded-2xl border border-black/10 p-5 sm:p-6 bg-white shadow-[0_10px_40px_rgba(0,0,0,.08)]"
               >
-                {/* başlık / yıldız */}
                 <div className="flex items-center justify-between">
                   <div className="flex gap-1" aria-label={`Puan: ${t.rating}/5`}>
                     {Array.from({ length: 5 }).map((_, k) => (
@@ -192,24 +123,12 @@ export default function Testimonials() {
                   </span>
                 </div>
 
-                {/* metin */}
-                <p className="mt-3 text-[15px] leading-7 text-black/80">
-                  “{t.text}”
-                </p>
-                {t.detail && (
-                  <p className="mt-2 text-[14px] leading-6 text-black/60">
-                    {t.detail}
-                  </p>
-                )}
+                <p className="mt-3 text-[15px] leading-7 text-black/80">“{t.text}”</p>
+                {t.detail && <p className="mt-2 text-[14px] leading-6 text-black/60">{t.detail}</p>}
 
-                {/* isim */}
-                <div className="mt-4 pt-4 border-t border-black/10 text-[14px] font-medium">
-                  {t.name}
-                </div>
+                <div className="mt-4 pt-4 border-t border-black/10 text-[14px] font-medium">{t.name}</div>
               </div>
             ))}
-
-            {/* küçük arka boşluk */}
             <div className="shrink-0 w-1" />
           </div>
 

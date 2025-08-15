@@ -1,3 +1,4 @@
+// src/app/rooms/[slug]/RoomGalleryClient.tsx
 "use client";
 
 import Image from "next/image";
@@ -94,7 +95,6 @@ export default function RoomGalleryClient({ images }: Props) {
         ref={trackRef}
         onScroll={handleLoop}
         className="flex gap-6 sm:gap-8 overflow-x-auto scroll-smooth no-scrollbar select-none px-4 sm:px-6 lg:px-8 py-2"
-        style={{ msOverflowStyle: "none", scrollbarWidth: "none" } as unknown}
       >
         <div className="shrink-0 w-1" />
         {extended.map((src, i) => (
