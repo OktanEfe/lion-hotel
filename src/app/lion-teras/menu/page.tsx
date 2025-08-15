@@ -12,13 +12,13 @@ type MenuCategory = { id: string; title: string; image?: string; items: MenuItem
 type MenuData = { categories: MenuCategory[] };
 
 /* JSON'u tipe oturt */
-const MENU: MenuData = (rawMenu as unknown) as MenuData;
+const MENU: MenuData = rawMenu as MenuData;
 
 /* ---------- Tema ---------- */
 const UI = { ink: "#0B0B0B", paper: "#FFFFFF", beige: "#efdfcf", gold: "#CBA135" };
 
 /* ---------- Çok hafif giriş animasyonu (stagger) ---------- */
-function useEnter(ref: React.RefObject<HTMLElement>, delay = 0) {
+function useEnter<T extends HTMLElement>(ref: React.RefObject<T | null>, delay = 0) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -46,17 +46,12 @@ export default function MenuPage() {
 
   const categories = MENU.categories;
 
-  // null => kategori grid; active => kategori detay
   const [active, setActive] = useState<MenuCategory | null>(null);
 
-  // Arama İSTENMİYOR => kaldırıldı
-
-  // Ürün listesi (aktif kategoride)
   const items = useMemo(() => (active ? active.items : []), [active]);
 
   return (
     <main className="min-h-screen" style={{ background: UI.paper, color: UI.ink }}>
-      {/* ---- QR MENU HEADER (global navbar yok; bu header .qr-header) ---- */}
       <header className="qr-header sticky top-0 z-40 border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/75">
         <div className="container mx-auto px-4 sm:px-6 h-14 flex items-center gap-3">
           {active ? (
@@ -70,7 +65,6 @@ export default function MenuPage() {
                 ← KATEGORİLERE DÖN
               </button>
 
-              {/* Kategori adı sağ üste yaslı */}
               <div className="ml-auto text-sm md:text-base font-medium truncate">
                 {active.title}
               </div>
@@ -95,10 +89,8 @@ export default function MenuPage() {
         </div>
       </header>
 
-      {/* Header altında ufak nefes payı */}
       <div className="h-3 sm:h-4" />
 
-      {/* ---- Kategoriler (İLK AÇILIŞTA HAFİF YAVAŞ GELSİN) ---- */}
       {!active && (
         <section className="container mx-auto px-4 sm:px-6 pt-2 sm:pt-4 pb-8 sm:pb-12">
           <div className="mb-5 sm:mb-8">
@@ -108,7 +100,9 @@ export default function MenuPage() {
             >
               Kategoriler
             </h2>
-            <p className="text-black/65 text-sm md:text-[15px]">İstediğiniz kategoriyi seçin; ürünleri detaylı görün.</p>
+            <p className="text-black/65 text-sm md:text-[15px]">
+              İstediğiniz kategoriyi seçin; ürünleri detaylı görün.
+            </p>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-7">
@@ -119,12 +113,8 @@ export default function MenuPage() {
         </section>
       )}
 
-      {/* ---- Kategori Detay (ÜRÜNLER HAFİF YAVAŞ GELSİN) ---- */}
       {active && (
         <section className="container mx-auto px-4 sm:px-6 pt-2 sm:pt-4 pb-8 sm:pb-12">
-          {/* Not: İstek gereği kategori kapak görseli ve ürün görselleri GÖSTERİLMİYOR */}
-
-          {/* Liste kutusu */}
           <div
             className="rounded-2xl p-2 md:p-3 ring-1"
             style={{ background: UI.beige, boxShadow: "0 10px 30px rgba(0,0,0,.06)", borderColor: "rgba(0,0,0,.06)" }}
@@ -144,12 +134,9 @@ export default function MenuPage() {
   );
 }
 
-/* ---------- Parçalar ---------- */
-
-// Kategori kartı: kapak görseli varsa gösterir (ürün detayında görsel yok)
 function CategoryCard({ c, onOpen, idx }: { c: MenuCategory; onOpen: () => void; idx: number }) {
-  const ref = useRef<HTMLButtonElement>(null);
-  useEnter(ref, Math.min(idx * 70, 300)); // hafif stagger
+  const ref = useRef<HTMLButtonElement | null>(null);
+  useEnter(ref, Math.min(idx * 70, 300));
 
   return (
     <button
@@ -186,10 +173,9 @@ function CategoryCard({ c, onOpen, idx }: { c: MenuCategory; onOpen: () => void;
   );
 }
 
-// Ürün satırı: görsel yok, tipografi daha büyük ve aralıklar geniş
 function ItemRow({ item, idx }: { item: MenuItem; idx: number }) {
-  const ref = useRef<HTMLLIElement>(null);
-  useEnter(ref, Math.min(idx * 35, 250)); // hafif stagger
+  const ref = useRef<HTMLLIElement | null>(null);
+  useEnter(ref, Math.min(idx * 35, 250));
 
   return (
     <li
