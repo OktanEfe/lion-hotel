@@ -1,0 +1,127 @@
+{
+  "categories": [
+    {
+      "id": "ara-sicaklar",
+      "title": "Ara Sıcaklar",
+      "image": "/menu-covers/ara-sicaklar.jpg",
+      "items": [
+        { "name": "Patates Kızartması", "price": "250₺" },
+        { "name": "Elma Dilimi Patates", "price": "250₺" },
+        { "name": "Bira Tabağı", "price": "350₺" },
+        { "name": "Kaşarlı Tost", "price": "200₺" },
+        { "name": "Karışık Tost", "price": "250₺" },
+        { "name": "Tavuk Wrap", "price": "450₺" },
+        { "name": "Hamburger", "price": "500₺" }
+      ]
+    },
+    {
+      "id": "ana-yemekler",
+      "title": "Ana Yemekler",
+      "image": "/menu-covers/ana-yemekler.jpg",
+      "items": [
+        { "name": "Karışık Izgara", "price": "650₺" },
+        { "name": "Tavuk Pirzola", "price": "350₺" },
+        { "name": "Kaşarlı Köfte", "price": "450₺" },
+        { "name": "Izgara Köfte", "price": "400₺" },
+        { "name": "Tavuk Şiş", "price": "350₺" },
+        { "name": "Tavuk Sote", "price": "300₺" },
+        { "name": "Et Pirzola", "price": "550₺" }
+      ]
+    },
+    {
+      "id": "makarna-salatalar",
+      "title": "Makarna & Salatalar",
+      "image": "/menu-covers/makarna-salatalar.jpg",
+      "items": [
+        { "name": "Tavuk Penne", "price": "350₺" },
+        { "name": "Spagetti Bolonez", "price": "350₺" },
+        { "name": "Sebzeli Penne", "price": "350₺" },
+        { "name": "Mantı", "price": "300₺" },
+        { "name": "Alfredo", "price": "350₺" },
+        { "name": "Çoban Salata", "price": "250₺" },
+        { "name": "Mevsim Salata", "price": "250₺" },
+        { "name": "Ton Balıklı Salata", "price": "300₺" },
+        { "name": "Tavuk Sezar Salata", "price": "350₺" }
+      ]
+    },
+    {
+      "id": "tatlilar",
+      "title": "Tatlılar",
+      "image": "/menu-covers/tatlilar.jpg",
+      "items": [
+        { "name": "Profiterollü Pasta", "price": "200₺" },
+        { "name": "Çikolatalı Pasta", "price": "200₺" },
+        { "name": "Fıstık Rüyası", "price": "200₺" },
+        { "name": "Chesscake", "price": "200₺" },
+        { "name": "Sufle", "price": "200₺" },
+        { "name": "Waffle", "price": "350₺" }
+      ]
+    },
+    {
+      "id": "soguk-icecekler",
+      "title": "Soğuk İçecekler",
+      "image": "/menu-covers/soguk-icecekler.jpg",
+      "items": [
+        { "name": "Su", "price": "50₺" },
+        { "name": "Ayran", "price": "100₺" },
+        { "name": "Sade Soda", "price": "150₺" },
+        { "name": "Meyveli Soda", "price": "150₺" },
+        { "name": "Cola", "price": "150₺" },
+        { "name": "Fanta", "price": "150₺" },
+        { "name": "Redbull", "price": "200₺" }
+      ]
+    },
+    {
+      "id": "biralar",
+      "title": "Biralar",
+      "image": "/menu-covers/biralar.jpg",
+      "items": [
+        { "name": "Efes Pilsen 50cl", "price": "350₺" },
+        { "name": "Efes Malt 50cl", "price": "350₺" },
+        { "name": "Efes Özel Seri 50cl", "price": "350₺" },
+        { "name": "Bomonti Filtresiz 50cl", "price": "350₺" },
+        { "name": "Carlsberg", "price": "400₺" },
+        { "name": "Becks", "price": "350₺" },
+        { "name": "Corona", "price": "400₺" },
+        { "name": "Tuborg Gold", "price": "350₺" }
+      ]
+    },
+    {
+      "id": "viskiler",
+      "title": "Viskiler",
+      "image": "/menu-covers/viskiler.jpg",
+      "items": [
+        { "name": "Viski Duble", "price": "450₺" },
+        { "name": "Viski Tek", "price": "400₺" },
+        { "name": "Viski 35cl", "price": "3000₺" },
+        { "name": "Viski 50cl", "price": "4000₺" },
+        { "name": "Viski 70cl", "price": "5000₺" },
+        { "name": "Viski 100cl", "price": "6000₺" }
+      ]
+    },
+    {
+      "id": "vodka",
+      "title": "Vodka",
+      "image": "/menu-covers/vodka.jpg",
+      "items": [
+        { "name": "Vodka", "price": "400₺" },
+        { "name": "Vodka 35cl", "price": "3000₺" },
+        { "name": "Vodka 50cl", "price": "4000₺" },
+        { "name": "Vodka 70cl", "price": "5000₺" },
+        { "name": "Vodka 100cl", "price": "6000₺" }
+      ]
+    },
+    {
+      "id": "rakilar",
+      "title": "Rakılar",
+      "image": "/menu-covers/rakilar.jpg",
+      "items": [
+        { "name": "Duble", "price": "450₺" },
+        { "name": "35cl", "price": "3000₺" },
+        { "name": "50cl", "price": "4000₺" },
+        { "name": "70cl", "price": "5000₺" },
+        { "name": "100cl", "price": "6000₺" }
+      ]
+    }
+  ]
+}
