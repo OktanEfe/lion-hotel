@@ -158,6 +158,7 @@ export default function Testimonials() {
             ref={railRef}
             onScroll={handleLoop}
             className="flex gap-6 md:gap-8 overflow-x-auto scroll-smooth no-scrollbar"
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             style={{ msOverflowStyle: "none", scrollbarWidth: "none" } as any}
           >
             {/* küçük ön boşluk */}
