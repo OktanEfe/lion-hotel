@@ -7,7 +7,9 @@
   --shadow-soft: 0 10px 30px rgba(0,0,0,.08);
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
-
+/* yatay scroll barı her tarayıcıda gizle */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 /* Temel renkler: footer’la aynı bej */
 :root {
   color-scheme: light;
