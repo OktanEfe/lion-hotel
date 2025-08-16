@@ -7,36 +7,67 @@
   --shadow-soft: 0 10px 30px rgba(0,0,0,.08);
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
-/* yatay scroll barı her tarayıcıda gizle */
-.no-scrollbar::-webkit-scrollbar { display: none; }
-.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-/* Temel renkler: footer’la aynı bej */
-:root {
-  color-scheme: light;
-  --background: #efdfcf;   /* <<< beyaza değil beje sabitledik */
-  --foreground: #1a1a1a;
-}
 
-/* Yükseklik & tipografi (display/flex işini layout’ta tailwind hallediyor) */
+/* ———————————————————————————————————————————
+   YATAY KAYMA KİLİDİ + GENEL GÜVENLİK
+   ——————————————————————————————————————————— */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
 html, body {
   min-height: 100%;
+  overflow-x: hidden;          /* <<< yatay scroll kilidi */
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
+  touch-action: pan-y;         /* iOS “yan kayma” jestini kısıtla */
 }
 
-/* BUNLARI SİL/YORUMLA: (layout zaten veriyor)
-body{
-  display: flex;
-  flex-direction: column;
+/* Temel renkler (site genel zemini bej) */
+:root {
+  color-scheme: light;
+  --background: #efdfcf;
+  --foreground: #1a1a1a;
 }
-main{
-  flex: 1;
-}
-*/
 
+/* Görsellerin taşmasını engelle */
+img, video, canvas, svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Tüm yatay scrollbar’ları gizle (gerekli yerlerde class ile de kullanılıyor) */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Konteyner */
 .container {
   max-width: 1120px;
   margin-inline: auto;
   padding-inline: 1.5rem;
 }
+
+/* ———————————————————————————————————————————
+   TAM GENİŞLİK (FULL-BLEED) GÜVENLİ YAPI
+   .full-bleed sınıfını kullanan bölümler taşma yapmaz
+   ——————————————————————————————————————————— */
+.full-bleed {
+  width: 100vw;
+  max-width: 100%;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  overflow-x: clip; /* taşmayı kes */
+}
+@supports (width: 100dvw) {
+  .full-bleed {
+    width: 100dvw;
+    margin-left: calc(50% - 50dvw);
+    margin-right: calc(50% - 50dvw);
+  }
+}
+
+/* BUNLARI ZATEN LAYOUT VERİYOR, GEREK YOKTU
+body{ display: flex; flex-direction: column; }
+main{ flex: 1; }
+*/

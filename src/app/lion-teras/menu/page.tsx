@@ -110,6 +110,9 @@ export default function MenuPage() {
               <CategoryCard key={c.id} c={c} onOpen={() => setActive(c)} idx={idx} />
             ))}
           </div>
+          <p className="mt-6 text-center text-sm text-black/60">
+  (Kişi başı 1500₺ harcama limiti bulunmaktadır)
+</p>
         </section>
       )}
 

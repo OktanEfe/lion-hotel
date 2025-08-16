@@ -9,10 +9,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="tr">
-      {/* min-h-dvh + flex-col -> sticky footer uyumlu; chrome burada kontrol edilecek */}
-      <body className="min-h-dvh flex flex-col bg-[#efdfcf] text-neutral-900">
-        <main className="flex-1">
+    <html lang="tr" className="overflow-x-hidden"> {/* ekstra güvenlik */}
+      {/* min-h-dvh + flex-col -> sticky footer uyumlu */}
+      <body className="min-h-dvh flex flex-col bg-[#efdfcf] text-neutral-900 overflow-x-hidden">
+        <main className="flex-1 overflow-x-hidden">
           <SiteChrome>{children}</SiteChrome>
         </main>
       </body>
