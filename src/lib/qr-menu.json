@@ -68,7 +68,10 @@
         { "name": "Meyveli Soda", "price": "150₺" },
         { "name": "Cola", "price": "150₺" },
         { "name": "Fanta", "price": "150₺" },
-        { "name": "Redbull", "price": "200₺" }
+        { "name": "Redbull", "price": "200₺" },
+        { "name": "Alkollü Kokteyl", "price": "600₺" },
+        { "name": "Alkolsüz Kokteyl", "price": "400₺" }
+
       ]
     },
     {
