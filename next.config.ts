@@ -24,8 +24,8 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: "/rooms/:slug*",
-        destination: "/odalar/:slug*",
+        source: "/rooms/:slug",
+        destination: "/odalar/:slug",
         permanent: true,
       },
       {
