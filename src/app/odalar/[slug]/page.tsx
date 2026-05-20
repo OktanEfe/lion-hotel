@@ -18,7 +18,7 @@ export async function generateMetadata(
   const room = findRoom(slug);
   if (!room) return { title: "Oda | Lion Hotel" };
   const title = `${room.name} | Lion Hotel`;
-  const description = `${room.name} oda detayları, görselleri ve Lion Hotel Çınarcık konaklama bilgileri.`;
+  const description = `${room.name} için ${room.specs.area} oda bilgileri, görselleri ve Lion Hotel Çınarcık konaklama detayları.`;
   return {
     title,
     description,

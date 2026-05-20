@@ -1,4 +1,4 @@
-import { ROOMS } from "@/lib/rooms";
+import { SORTED_ROOMS } from "@/lib/rooms";
 import Reveal from "@/components/shared/Reveal";
 import RoomsCard from "@/components/rooms/RoomsCard";
 
@@ -26,7 +26,7 @@ export default function RoomsGrid() {
         </Reveal>
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">
-          {ROOMS.map((room) => (
+          {SORTED_ROOMS.map((room) => (
             <Reveal as="div" className="experience-reveal" key={room.slug}>
               <RoomsCard room={room} />
             </Reveal>

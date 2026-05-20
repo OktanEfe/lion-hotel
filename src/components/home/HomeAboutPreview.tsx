@@ -54,7 +54,7 @@ export default function HomeAboutPreview() {
           </div>
 
           {/* Sağ Kolon: Premium Katmanlı Görsel Alanı */}
-          <div className="lg:col-span-6 relative w-full flex items-center justify-center">
+          <div className="lg:col-span-6 relative w-full flex items-center justify-center pb-14 md:pb-0">
             <div className="relative w-full max-w-[480px] lg:max-w-none aspect-[3/4] sm:aspect-[4/3] lg:aspect-[3/4] rounded-[3rem] overflow-hidden bg-[#FAF9F6] border border-[#111111]/5 shadow-[0_20px_50px_rgba(0,0,0,0.04)] group">
               <Image
                 src="/about/hotel/aboutpreview.jpg"
@@ -70,7 +70,7 @@ export default function HomeAboutPreview() {
             </div>
 
             {/* Masaüstünde Mimari Dergi Havası Veren İkinci Küçük Katmanlı Görsel Kontrastı */}
-            <div className="hidden md:block absolute -bottom-10 -left-10 w-48 h-64 rounded-[2rem] overflow-hidden border-4 border-[#F7F5F0] shadow-[0_25px_50px_rgba(0,0,0,0.08)] bg-[#222222]">
+            <div className="absolute -bottom-2 right-3 h-36 w-28 overflow-hidden rounded-[1.4rem] border-4 border-[#F7F5F0] bg-[#222222] shadow-[0_25px_50px_rgba(0,0,0,0.08)] sm:right-8 sm:h-44 sm:w-36 md:-bottom-10 md:-left-10 md:right-auto md:h-64 md:w-48 md:rounded-[2rem]">
               <Image
                 src="/about/hotel/aboutintro.jpg"
                 alt="Lion Hotel mimari detay"

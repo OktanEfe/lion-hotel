@@ -65,8 +65,8 @@ export default function Footer() {
                 <a className="transition-colors duration-400 hover:text-white inline-block py-0.5 font-medium text-white/80" href="tel:+905319713134">
                   +90 (531) 971 31 34
                 </a>
-                <a className="transition-colors duration-400 hover:text-white inline-block py-0.5" href="mailto:info@lionhotel.com">
-                  info@lionhotel.com
+                <a className="transition-colors duration-400 hover:text-white inline-block py-0.5" href="mailto:lionhotelcinarcik@gmail.com">
+                  lionhotelcinarcik@gmail.com
                 </a>
               </div>
             </address>
@@ -79,10 +79,10 @@ export default function Footer() {
 
         {/* Telif Hakları Alanı */}
         <div className="flex flex-col gap-4 pt-8 text-[11px] tracking-[0.2em] font-light text-[#6E6A63] sm:flex-row sm:items-center sm:justify-between">
-          <span className="uppercase">© {new Date().getFullYear()} LION HOTEL. ALL RIGHTS RESERVED.</span>
+          <span className="uppercase">© {new Date().getFullYear()} LION HOTEL. TÜM HAKLARI SAKLIDIR.</span>
           <div className="flex items-center gap-3">
             <span className="h-[1px] w-6 bg-[#6E1B1F]/60" />
-            <span className="text-[#6E6A63]/80 tracking-[0.25em]">SILENT LUXURY BOUTIQUE</span>
+            <span className="text-[#6E6A63]/80 tracking-[0.25em]">SAKİN LÜKS BUTİK OTEL</span>
           </div>
         </div>
       </div>

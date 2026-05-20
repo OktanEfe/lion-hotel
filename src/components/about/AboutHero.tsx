@@ -6,7 +6,7 @@ import ScrollIndicator from "@/components/shared/ScrollIndicator";
 
 export default function AboutHero() {
   return (
-    <section className="relative w-full h-screen bg-[#111111] overflow-hidden flex items-center justify-center">
+    <section className="relative flex h-[82svh] min-h-[560px] w-full items-center justify-center overflow-hidden bg-[#111111] sm:min-h-[640px] md:h-screen">
       
       {/* Medya Katmanı */}
       <div className="absolute inset-0 w-full h-full z-0">
@@ -14,7 +14,7 @@ export default function AboutHero() {
           src="/hero/about/abouthero.jpg"
           alt="Lion Hotel Hakkımızda Sinematik Görsel"
           fill
-          className="object-cover object-center scale-105 animate-[subtle-zoom_20s_infinite_ease-in-out]"
+          className="object-cover object-[50%_42%] scale-105 animate-[subtle-zoom_20s_infinite_ease-in-out] sm:object-center"
           sizes="100vw"
           priority
         />
@@ -24,13 +24,13 @@ export default function AboutHero() {
       </div>
 
       {/* İçerik Alanı */}
-      <div className="container mx-auto px-6 sm:px-8 lg:px-16 relative z-30 text-center flex flex-col items-center justify-center h-full max-w-7xl">
+      <div className="container relative z-30 mx-auto flex h-full max-w-7xl flex-col items-center justify-center px-5 text-center sm:px-8 lg:px-16">
         <Reveal>
           <h1 
-            className="text-[40px] sm:text-[64px] md:text-[88px] lg:text-[112px] font-light leading-[1.08] tracking-tight text-[#FFFFFF] select-none filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.75)]"
+            className="max-w-[11ch] text-[38px] font-light leading-[1.08] tracking-tight text-[#FFFFFF] filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.75)] select-none min-[390px]:text-[42px] sm:max-w-none sm:text-[64px] md:text-[88px] lg:text-[104px]"
             style={{ fontFamily: "var(--font-playfair)" }}
           >
-            Zamansız Bir <br />
+            Zamansız Bir <br className="hidden sm:block" />
             <span className="italic font-normal text-white/95">Konaklama Hikayesi</span>
           </h1>
         </Reveal>

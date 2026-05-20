@@ -32,6 +32,15 @@ export type Room = {
   };
 };
 
+const preferredRoomOrder: RoomSlug[] = [
+  "bir-arti-bir-oda",
+  "deniz-manzarali-balkonsuz",
+  "deniz-manzarali-balkonlu",
+  "standart-oda",
+  "aile-odasi",
+  "suit-oda",
+];
+
 const baseAmenities = [
   { label: "Wi-Fi", icon: "wifi" },
   { label: "Klima", icon: "air" },
@@ -81,20 +90,20 @@ const suitOdaImages = buildRoomImages("suit-oda");
 export const ROOMS: Room[] = [
   {
     slug: "aile-odasi",
-    name: "Aile Odası",
+    name: "Triple Oda",
     priceFrom: 299,
     cover: aileOdasiImages.cover,
     gallery: aileOdasiImages.gallery,
     isAvailable: aileOdasiImages.isAvailable,
     availabilityLabel: aileOdasiImages.availabilityLabel,
-    specs: { area: "40-48 m²", bed: "1 King + 2 Single", view: "Şehir / Avlu" },
+    specs: { area: "17-25 m²", bed: "1 Double + 1 Single", view: "Şehir / Avlu" },
     hero: aileOdasiImages.hero,
     split1: {
       imageLeft: aileOdasiImages.split1,
-      textRight: "Herkes için alan; çocuklar için güvenli, ebeveynler için ferah.",
+      textRight: "Üç kişilik konaklamalar için dengeli, ferah ve kullanışlı bir plan.",
     },
     split2: {
-      textLeft: "Yumuşak malzemeler, sağlam mobilyalar ve kolay kullanılan alanlar.",
+      textLeft: "Yumuşak malzemeler, sade mobilyalar ve pratik kullanım alanları.",
       imageRight: aileOdasiImages.split2,
     },
     amenities: baseAmenities,
@@ -102,19 +111,19 @@ export const ROOMS: Room[] = [
       banner: aileOdasiImages.banner,
       thumb1: aileOdasiImages.thumb1,
       thumb2: aileOdasiImages.thumb2,
-      title: "Aile Dostu",
-      text: "Birlikte geçirilen zamanlara eşlik eden sıcak bir atmosfer.",
+      title: "Üç Kişilik Konfor",
+      text: "Birlikte konaklayan misafirler için sakin ve dengeli bir oda atmosferi.",
     },
   },
   {
     slug: "deniz-manzarali-balkonsuz",
-    name: "Deniz Manzaralı Balkonsuz",
+    name: "Deniz Manzaralı Balkonsuz Oda",
     priceFrom: 189,
     cover: denizManzaraliBalkonsuzImages.cover,
     gallery: denizManzaraliBalkonsuzImages.gallery,
     isAvailable: denizManzaraliBalkonsuzImages.isAvailable,
     availabilityLabel: denizManzaraliBalkonsuzImages.availabilityLabel,
-    specs: { area: "25-28 m²", bed: "Queen / Twin", view: "Deniz Manzarası" },
+    specs: { area: "15-20 m²", bed: "Queen / Twin", view: "Deniz Manzarası" },
     hero: denizManzaraliBalkonsuzImages.hero,
     split1: {
       imageLeft: denizManzaraliBalkonsuzImages.split1,
@@ -136,13 +145,13 @@ export const ROOMS: Room[] = [
   },
   {
     slug: "deniz-manzarali-balkonlu",
-    name: "Deniz Manzaralı Balkonlu",
+    name: "Deniz Manzaralı Balkonlu Oda",
     priceFrom: 229,
     cover: denizManzaraliBalkonluImages.cover,
     gallery: denizManzaraliBalkonluImages.gallery,
     isAvailable: denizManzaraliBalkonluImages.isAvailable,
     availabilityLabel: denizManzaraliBalkonluImages.availabilityLabel,
-    specs: { area: "28-32 m²", bed: "Queen / King", view: "Deniz Manzarası / Balkon" },
+    specs: { area: "20-25 m²", bed: "Queen / King", view: "Deniz Manzarası / Balkon" },
     hero: denizManzaraliBalkonluImages.hero,
     split1: {
       imageLeft: denizManzaraliBalkonluImages.split1,
@@ -163,13 +172,13 @@ export const ROOMS: Room[] = [
   },
   {
     slug: "standart-oda",
-    name: "Standart",
+    name: "Standart Oda",
     priceFrom: 169,
     cover: standartOdaImages.cover,
     gallery: standartOdaImages.gallery,
     isAvailable: standartOdaImages.isAvailable,
     availabilityLabel: standartOdaImages.availabilityLabel,
-    specs: { area: "22-25 m²", bed: "Queen / Twin", view: "Şehir / Avlu" },
+    specs: { area: "12-15 m²", bed: "Queen / Twin", view: "Şehir / Avlu" },
     hero: standartOdaImages.hero,
     split1: {
       imageLeft: standartOdaImages.split1,
@@ -196,7 +205,7 @@ export const ROOMS: Room[] = [
     gallery: birArtiBirOdaImages.gallery,
     isAvailable: birArtiBirOdaImages.isAvailable,
     availabilityLabel: birArtiBirOdaImages.availabilityLabel,
-    specs: { area: "45-52 m²", bed: "King + Kanepe", view: "Avlu / Şehir" },
+    specs: { area: "25-35 m²", bed: "King + Kanepe", view: "Avlu / Şehir" },
     hero: birArtiBirOdaImages.hero,
     split1: {
       imageLeft: birArtiBirOdaImages.split1,
@@ -223,7 +232,7 @@ export const ROOMS: Room[] = [
     gallery: suitOdaImages.gallery,
     isAvailable: suitOdaImages.isAvailable,
     availabilityLabel: suitOdaImages.availabilityLabel,
-    specs: { area: "40-45 m²", bed: "King-size", view: "Şehir / Kısmi Deniz" },
+    specs: { area: "25-30 m²", bed: "King-size", view: "Şehir / Kısmi Deniz" },
     hero: suitOdaImages.hero,
     split1: {
       imageLeft: suitOdaImages.split1,
@@ -244,6 +253,19 @@ export const ROOMS: Room[] = [
   },
 ];
 
-export const ROOMS_ORDER: RoomSlug[] = ROOMS.map((room) => room.slug);
+export const SORTED_ROOMS: Room[] = [...ROOMS].sort((firstRoom, secondRoom) => {
+  if (firstRoom.slug === "bir-arti-bir-oda") return -1;
+  if (secondRoom.slug === "bir-arti-bir-oda") return 1;
+  if (firstRoom.isAvailable !== secondRoom.isAvailable) {
+    return firstRoom.isAvailable ? -1 : 1;
+  }
+
+  return (
+    preferredRoomOrder.indexOf(firstRoom.slug) -
+    preferredRoomOrder.indexOf(secondRoom.slug)
+  );
+});
+
+export const ROOMS_ORDER: RoomSlug[] = SORTED_ROOMS.map((room) => room.slug);
 
 export const findRoom = (slug: RoomSlug) => ROOMS.find((room) => room.slug === slug);
