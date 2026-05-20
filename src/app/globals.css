@@ -1,9 +1,14 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-ink: #0B0B0B;
-  --color-paper: #FFFFFF;
-  --color-gold-500: #CBA135;
+  --color-ink: #111111;
+  --color-bg: #F7F5F0;
+  --color-paper: #FAF9F6;
+  --color-surface: #FAF9F6;
+  --color-stone: #E7DED3;
+  --color-muted: #6E6A63;
+  --color-accent: #7A1E1E;
+  --color-border: rgba(17,17,17,.10);
   --shadow-soft: 0 10px 30px rgba(0,0,0,.08);
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
@@ -15,6 +20,10 @@
 *::before,
 *::after { box-sizing: border-box; }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html, body {
   min-height: 100%;
   overflow-x: hidden;          /* <<< yatay scroll kilidi */
@@ -24,11 +33,23 @@ html, body {
   touch-action: pan-y;         /* iOS “yan kayma” jestini kısıtla */
 }
 
-/* Temel renkler (site genel zemini bej) */
 :root {
   color-scheme: light;
-  --background: #efdfcf;
-  --foreground: #1a1a1a;
+  --color-bg: #F7F5F0;
+  --color-surface: #FAF9F6;
+  --color-stone: #E7DED3;
+  --color-ink: #111111;
+  --color-muted: #6E6A63;
+  --color-border: rgba(17,17,17,.10);
+  --color-accent: #7A1E1E;
+  --background: var(--color-bg);
+  --foreground: var(--color-ink);
+  --surface: var(--color-surface);
+  --surface-2: var(--color-stone);
+  --muted: var(--color-muted);
+  --accent: var(--color-accent);
+  --stone: var(--color-stone);
+  --border: var(--color-border);
 }
 
 /* Görsellerin taşmasını engelle */
@@ -58,6 +79,83 @@ img, video, canvas, svg {
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
   overflow-x: clip; /* taşmayı kes */
+}
+
+.page-enter {
+  animation: pageFadeIn 620ms ease-out both;
+}
+
+.reveal {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.experience-reveal.reveal {
+  opacity: 0;
+  transform: translateY(18px) scale(.992);
+  transition: opacity 800ms ease, transform 900ms cubic-bezier(.22, 1, .36, 1);
+}
+
+.experience-reveal.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scroll-line {
+  0% {
+    transform: translateY(-100%);
+  }
+  50%, 100% {
+    transform: translateY(250%);
+  }
+}
+
+@keyframes amenity-slide {
+  0% {
+    transform: translateX(-100%);
+  }
+  50%, 100% {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .page-enter {
+    animation: none;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .experience-reveal.reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 @supports (width: 100dvw) {
   .full-bleed {

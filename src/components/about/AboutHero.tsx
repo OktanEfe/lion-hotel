@@ -1,38 +1,43 @@
+"use client";
+
 import Image from "next/image";
+import Reveal from "@/components/shared/Reveal";
+import ScrollIndicator from "@/components/shared/ScrollIndicator";
 
 export default function AboutHero() {
   return (
-    <section className="relative bg-[#efdfcf]">
-      <div className="container pt-20 md:pt-28 pb-10 md:pb-14">
-        <p className="text-xs tracking-[0.28em] text-black/60">ABOUT</p>
-        <h1
-          className="mt-2 text-[36px] leading-tight md:text-[68px] text-black"
-          style={{ fontFamily: "var(--font-playfair)" }}
-        >
-          Butik konfor, <br className="hidden sm:block" />
-          zamansız tasarımla buluşuyor.
-        </h1>
-        
-        <p className="mt-4 md:mt-5 max-w-2xl text-sm md:text-base text-black/75">
-          Lion Hotel; sade lüks, sıcak misafirperverlik ve şehirle kurduğumuz bağla
-          hatırlanan bir deneyim sunuyor. Oda tasarımlarımızdan Lion Teras’ın
-          atmosferine kadar her detay, “az ama öz” yaklaşımıyla seçildi.
-        </p>
+    <section className="relative w-full h-screen bg-[#111111] overflow-hidden flex items-center justify-center">
+      
+      {/* Medya Katmanı */}
+      <div className="absolute inset-0 w-full h-full z-0">
+        <Image
+          src="/hero/about/abouthero.jpg"
+          alt="Lion Hotel Hakkımızda Sinematik Görsel"
+          fill
+          className="object-cover object-center scale-105 animate-[subtle-zoom_20s_infinite_ease-in-out]"
+          sizes="100vw"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/45 z-10" />
+        <div className="absolute inset-0 bg-radial-gradient from-transparent via-black/30 to-black/85 pointer-events-none z-10" />
+        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#F7F5F0] via-[#F7F5F0]/20 to-transparent opacity-100 z-20" />
       </div>
 
-      {/* hero görseli */}
-      <div className="container">
-        <div className="relative w-full aspect-[16/8] md:aspect-[16/6] rounded-2xl overflow-hidden">
-          <Image
-            src="/about-hero.jpg" // /public/about-hero.jpg ekleyebilirsin
-            alt="About Lion Hotel"
-            fill
-            className="object-cover"
-            priority
-            sizes="(max-width:768px) 100vw, 1120px"
-          />
-        </div>
+      {/* İçerik Alanı */}
+      <div className="container mx-auto px-6 sm:px-8 lg:px-16 relative z-30 text-center flex flex-col items-center justify-center h-full max-w-7xl">
+        <Reveal>
+          <h1 
+            className="text-[40px] sm:text-[64px] md:text-[88px] lg:text-[112px] font-light leading-[1.08] tracking-tight text-[#FFFFFF] select-none filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.75)]"
+            style={{ fontFamily: "var(--font-playfair)" }}
+          >
+            Zamansız Bir <br />
+            <span className="italic font-normal text-white/95">Konaklama Hikayesi</span>
+          </h1>
+        </Reveal>
       </div>
+
+      {/* Kaydır Göstergesi */}
+      <ScrollIndicator />
     </section>
   );
 }

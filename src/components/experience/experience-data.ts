@@ -1,0 +1,51 @@
+export const EXPERIENCE_ITEMS = [
+  {
+    title: "Kahvaltı Deneyimi",
+    eyebrow: "SABAH RITUALI",
+    text: "Güne yerel üreticilerden temin edilen taze malzemeler, incelikle düşünülmüş sıcak servis ve acele etmeyen bir felsefeyle başlayın. Sabah ışıklarının eşlik ettiği bu dingin ritüel, damak tadınızı yormadan güne kusursuz bir hazırlık yapmanızı sağlar.",
+    image: "/experience/breakfast/kahvalti.webp",
+    imageAlt: "Lion Hotel'de kahvaltı atmosferi",
+  },
+  {
+    title: "Sahil Yürüyüşleri",
+    eyebrow: "DENIZE YAKIN",
+    text: "Mavi ile yeşilin birleştiği Çınarcık sahiline yalnızca birkaç dakikalık konforlu bir yürüyüşle ulaşın. İster sabahın ilk saatlerinde dingin dalga sesleri eşliğinde, ister akşamüstü altın saatlerde günün tüm yorgunluğunu sahil şeridinin esintisinde bırakarak ritminizi yavaşlatın.",
+    image: "/experience/beach/sahil.jpg",
+    imageAlt: "Çınarcık sahiline yakın konaklama deneyimi",
+  },
+  {
+    title: "Merkezi Konum",
+    eyebrow: "KOLAY ERISIM",
+    text: "Şehrin en seçkin restoranlarına, iskeleye ve ana ulaşım arterlerine zahmetsizce entegre olan bir lokasyon. Hayatın tam kalbinde yer alırken, otel sınırlarından içeri girdiğiniz andan itibaren dünyayla aranıza kalın ama zarif bir sessizlik perdesi çeken izole mimari.",
+    image: "/experience/city/merkez.jpg",
+    imageAlt: "Lion Hotel merkezi konum atmosferi",
+  },
+  {
+    title: "Şehir Akşamları",
+    eyebrow: "AKSAM RITMI",
+    text: "Gün batımının ardından gökyüzünün büründüğü pastel tonlarla birlikte Çınarcık'ın sakin akşam kültürü başlar. Kalabalıktan uzak, lokal mekanların ve kıyı şeridinin dinlendirici melodileriyle harmanlanan lüks, ev sıcaklığındaki konaklama deneyiminize eşlik eder.",
+    image: "/experience/city/aksam.webp",
+    imageAlt: "Çınarcık'ta şehir akşamları",
+  },
+  {
+    title: "Sessiz Konaklama",
+    eyebrow: "SAKINLIK",
+    text: "Zihinsel ve fiziksel arınmayı odağına alan konaklama ünitelerimiz; akustik yalıtımı, gözü yormayan soft aydınlatma tasarımları ve doğal tekstil ürünleriyle donatıldı. Gün boyu dış dünyadan bağımsız, sadece kendinize ayıracağınız dingin bir zaman dilimi.",
+    image: "/experience/service/sessizkonaklama.jpg",
+    imageAlt: "Lion Hotel sessiz konaklama odası",
+  },
+  {
+    title: "Premium Oda Servisi",
+    eyebrow: "KISISSEL KONFOR",
+    text: "Kişisel alanınıza ve vaktinize en üst düzeyde saygı gösteren, siz talep ettiğiniz anda beliren, diğer zamanlarda ise tamamen görünmez kalan bir hizmet dili. Gurme lezzetlerden gece ikramlarına kadar her detay, odanızın mahremiyetinde kusursuzca sunulur.",
+    image: "/experience/service/services.jpg",
+    imageAlt: "Lion Hotel premium oda servisi",
+  },
+  {
+    title: "Gün Batımı Atmosferi",
+    eyebrow: "ALTIN SAAT",
+    text: "Marmara'nın sinematik gün batımı senfonisini en ön sıradan izleme ayrıcalığı. Denizin üzerinden süzülerek odanıza dolan altın saat ışıkları, zamanın yavaşladığı hissini uyandırırken, konaklamanızı kartpostal estetiğinde unutulmaz bir hatırata dönüştürür.",
+    image: "/experience/sunset/gunbatimi.jpg",
+    imageAlt: "Çınarcık gün batımı atmosferi",
+  },
+];

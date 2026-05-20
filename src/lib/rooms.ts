@@ -1,198 +1,249 @@
-// lib/rooms.ts
+import "server-only";
+import fs from "fs";
+import path from "path";
+
 export type RoomSlug =
-  | "deniz-manzarali-standart-oda"
-  | "suite-oda"
-  | "bir-arti-bir-oda"
-  | "deniz-manzarali-balkonlu-oda"
   | "aile-odasi"
-  | "standart-oda";
+  | "deniz-manzarali-balkonsuz"
+  | "deniz-manzarali-balkonlu"
+  | "standart-oda"
+  | "bir-arti-bir-oda"
+  | "suit-oda";
 
 export type Room = {
   slug: RoomSlug;
   name: string;
-  priceFrom: number;          // kart üstünde gösterim için (₺ veya $; istediğinde değiştirirsin)
-  cover: string;              // kart görseli
+  priceFrom: number;
+  cover: string;
+  gallery: string[];
+  isAvailable: boolean;
+  availabilityLabel: string;
   specs: { area: string; bed: string; view: string };
   hero: string;
   split1: { imageLeft: string; textRight: string };
   split2: { textLeft: string; imageRight: string };
   amenities: { label: string; icon: string }[];
   amenitiesBanner: {
-    banner: string; thumb1: string; thumb2: string; title: string; text: string;
-  };
-  offers: {
-    left: { image: string; title: string; href: string };
-    right: { image: string; title: string; href: string };
+    banner: string;
+    thumb1: string;
+    thumb2: string;
+    title: string;
+    text: string;
   };
 };
 
 const baseAmenities = [
-  { label: "Mountain View", icon: "⛰️" },
-  { label: "King Bed", icon: "🛏️" },
-  { label: "Shower Cabin", icon: "🚿" },
-  { label: "Air Conditioning", icon: "❄️" },
-  { label: "Wifi", icon: "📶" },
-  { label: "No Smoking", icon: "🚭" },
-] as const;
+  { label: "Wi-Fi", icon: "wifi" },
+  { label: "Klima", icon: "air" },
+  { label: "Duş", icon: "shower" },
+  { label: "Çift Kişilik Yatak", icon: "bed" },
+  { label: "Sessiz Oda", icon: "quiet" },
+  { label: "Manzara", icon: "view" },
+];
 
-const offersCommon = {
-  left: { image: "/rooms/offers/work-travel.jpg", title: "Work & Travel Offer", href: "#" },
-  right: { image: "/rooms/offers/wedding.jpg",     title: "Wedding & Events",    href: "#" },
+const roomImage = (folder: RoomSlug, file: string) => `/rooms/${folder}/${file}`;
+const roomHero = (folder: RoomSlug) => roomImage(folder, "hero.jpg");
+const fallbackRoomImage = "/hero/rooms/140-DSCF5085.jpg";
+const roomFileExists = (folder: RoomSlug, file: string) =>
+  fs.existsSync(path.join(process.cwd(), "public", "rooms", folder, file));
+const roomGallery = (folder: RoomSlug) =>
+  [1, 2, 3, 4, 5, 6]
+    .map((number) => `${number}.jpg`)
+    .filter((file) => roomFileExists(folder, file))
+    .map((file) => roomImage(folder, file));
+const buildRoomImages = (folder: RoomSlug) => {
+  const heroExists = roomFileExists(folder, "hero.jpg");
+  const gallery = roomGallery(folder);
+  const isAvailable = heroExists && gallery.length > 0;
+  const cover = heroExists ? roomHero(folder) : fallbackRoomImage;
+
+  return {
+    cover,
+    hero: cover,
+    gallery,
+    isAvailable,
+    availabilityLabel: isAvailable ? "" : "Yakında",
+    split1: gallery[0] ?? cover,
+    split2: gallery[1] ?? cover,
+    banner: gallery[2] ?? cover,
+    thumb1: gallery[3] ?? cover,
+    thumb2: gallery[4] ?? cover,
+  };
 };
+
+const aileOdasiImages = buildRoomImages("aile-odasi");
+const denizManzaraliBalkonsuzImages = buildRoomImages("deniz-manzarali-balkonsuz");
+const denizManzaraliBalkonluImages = buildRoomImages("deniz-manzarali-balkonlu");
+const standartOdaImages = buildRoomImages("standart-oda");
+const birArtiBirOdaImages = buildRoomImages("bir-arti-bir-oda");
+const suitOdaImages = buildRoomImages("suit-oda");
 
 export const ROOMS: Room[] = [
   {
-    slug: "deniz-manzarali-standart-oda",
-    name: "Deniz Manzaralı Standart Oda",
-    priceFrom: 189,
-    cover: "/rooms/deniz-manzarali-standart-oda/card.jpg",
-    specs: { area: "25–28 m²", bed: "Queen / Twin", view: "Sea View" },
-    hero: "/rooms/deniz-manzarali-standart-oda/hero.jpg",
+    slug: "aile-odasi",
+    name: "Aile Odası",
+    priceFrom: 299,
+    cover: aileOdasiImages.cover,
+    gallery: aileOdasiImages.gallery,
+    isAvailable: aileOdasiImages.isAvailable,
+    availabilityLabel: aileOdasiImages.availabilityLabel,
+    specs: { area: "40-48 m²", bed: "1 King + 2 Single", view: "Şehir / Avlu" },
+    hero: aileOdasiImages.hero,
     split1: {
-      imageLeft: "/rooms/deniz-manzarali-standart-oda/split-1-left.jpg",
-      textRight: "Şık çizgiler ve sade bir plan. Gün batımında deniz manzarası, sabahları yumuşak ışıklar.",
+      imageLeft: aileOdasiImages.split1,
+      textRight: "Herkes için alan; çocuklar için güvenli, ebeveynler için ferah.",
     },
     split2: {
-      textLeft: "Sessiz bir ritim, doğal malzemeler ve ferah bir akış.",
-      imageRight: "/rooms/deniz-manzarali-standart-oda/split-2-right.jpg",
+      textLeft: "Yumuşak malzemeler, sağlam mobilyalar ve kolay kullanılan alanlar.",
+      imageRight: aileOdasiImages.split2,
     },
-    amenities: [...baseAmenities],
+    amenities: baseAmenities,
     amenitiesBanner: {
-      banner: "/rooms/deniz-manzarali-standart-oda/amenities-banner.jpg",
-      thumb1: "/rooms/deniz-manzarali-standart-oda/amenities-thumb-1.jpg",
-      thumb2: "/rooms/deniz-manzarali-standart-oda/amenities-thumb-2.jpg",
-      title: "Comfortable Stays",
-      text: "Konforlu yataklar, zarif dokunuşlar ve nefes alan bir plan.",
+      banner: aileOdasiImages.banner,
+      thumb1: aileOdasiImages.thumb1,
+      thumb2: aileOdasiImages.thumb2,
+      title: "Aile Dostu",
+      text: "Birlikte geçirilen zamanlara eşlik eden sıcak bir atmosfer.",
     },
-    offers: offersCommon,
   },
   {
-    slug: "suite-oda",
-    name: "Suite Oda",
-    priceFrom: 259,
-    cover: "/rooms/suite-oda/card.jpg",
-    specs: { area: "40–45 m²", bed: "King-size", view: "City / Partial Sea" },
-    hero: "/rooms/suite-oda/hero.jpg",
+    slug: "deniz-manzarali-balkonsuz",
+    name: "Deniz Manzaralı Balkonsuz",
+    priceFrom: 189,
+    cover: denizManzaraliBalkonsuzImages.cover,
+    gallery: denizManzaraliBalkonsuzImages.gallery,
+    isAvailable: denizManzaraliBalkonsuzImages.isAvailable,
+    availabilityLabel: denizManzaraliBalkonsuzImages.availabilityLabel,
+    specs: { area: "25-28 m²", bed: "Queen / Twin", view: "Deniz Manzarası" },
+    hero: denizManzaraliBalkonsuzImages.hero,
     split1: {
-      imageLeft: "/rooms/suite-oda/split-1-left.jpg",
-      textRight: "Geniş yaşam alanı ve ayrı oturma bölümü ile uzun konaklamalara uygun.",
+      imageLeft: denizManzaraliBalkonsuzImages.split1,
+      textRight:
+        "Sade çizgiler, ferah bir plan ve gün ışığını içeri alan deniz manzaralı bir atmosfer.",
     },
     split2: {
-      textLeft: "Çalışma ve dinlenme alanları dengeli; sessiz ve verimli bir gün.",
-      imageRight: "/rooms/suite-oda/split-2-right.jpg",
+      textLeft: "Kısa tatiller ve iş seyahatleri için konforlu, sakin ve kullanışlı bir oda.",
+      imageRight: denizManzaraliBalkonsuzImages.split2,
     },
-    amenities: [...baseAmenities],
+    amenities: baseAmenities,
     amenitiesBanner: {
-      banner: "/rooms/suite-oda/amenities-banner.jpg",
-      thumb1: "/rooms/suite-oda/amenities-thumb-1.jpg",
-      thumb2: "/rooms/suite-oda/amenities-thumb-2.jpg",
-      title: "Comfortable Stays",
-      text: "Zarif oturma alanı ve sofistike detaylar; ev konforunda.",
+      banner: denizManzaraliBalkonsuzImages.banner,
+      thumb1: denizManzaraliBalkonsuzImages.thumb1,
+      thumb2: denizManzaraliBalkonsuzImages.thumb2,
+      title: "Denize Bakan Sakinlik",
+      text: "Rahat yataklar, sade detaylar ve manzarayı öne çıkaran dingin bir oda düzeni.",
     },
-    offers: offersCommon,
+  },
+  {
+    slug: "deniz-manzarali-balkonlu",
+    name: "Deniz Manzaralı Balkonlu",
+    priceFrom: 229,
+    cover: denizManzaraliBalkonluImages.cover,
+    gallery: denizManzaraliBalkonluImages.gallery,
+    isAvailable: denizManzaraliBalkonluImages.isAvailable,
+    availabilityLabel: denizManzaraliBalkonluImages.availabilityLabel,
+    specs: { area: "28-32 m²", bed: "Queen / King", view: "Deniz Manzarası / Balkon" },
+    hero: denizManzaraliBalkonluImages.hero,
+    split1: {
+      imageLeft: denizManzaraliBalkonluImages.split1,
+      textRight: "Geniş balkon; sabah kahvesi ve akşam esintisi için açık hava.",
+    },
+    split2: {
+      textLeft: "İçeride sıcak dokular, dışarıda esintili manzara; akışkan plan.",
+      imageRight: denizManzaraliBalkonluImages.split2,
+    },
+    amenities: baseAmenities,
+    amenitiesBanner: {
+      banner: denizManzaraliBalkonluImages.banner,
+      thumb1: denizManzaraliBalkonluImages.thumb1,
+      thumb2: denizManzaraliBalkonluImages.thumb2,
+      title: "Balkon Keyfi",
+      text: "Balkonda gün doğumu, odada huzurlu atmosfer.",
+    },
+  },
+  {
+    slug: "standart-oda",
+    name: "Standart",
+    priceFrom: 169,
+    cover: standartOdaImages.cover,
+    gallery: standartOdaImages.gallery,
+    isAvailable: standartOdaImages.isAvailable,
+    availabilityLabel: standartOdaImages.availabilityLabel,
+    specs: { area: "22-25 m²", bed: "Queen / Twin", view: "Şehir / Avlu" },
+    hero: standartOdaImages.hero,
+    split1: {
+      imageLeft: standartOdaImages.split1,
+      textRight: "Minimal ve fonksiyonel; kısa konaklamalar için ideal.",
+    },
+    split2: {
+      textLeft: "Doğal ışık, akıllı depolama ve ergonomik yerleşim.",
+      imageRight: standartOdaImages.split2,
+    },
+    amenities: baseAmenities,
+    amenitiesBanner: {
+      banner: standartOdaImages.banner,
+      thumb1: standartOdaImages.thumb1,
+      thumb2: standartOdaImages.thumb2,
+      title: "Sade ve Kullanışlı",
+      text: "Sade çizgiler, temiz detaylar ve rahat bir konaklama.",
+    },
   },
   {
     slug: "bir-arti-bir-oda",
     name: "1+1 Oda",
     priceFrom: 279,
-    cover: "/rooms/bir-arti-bir-oda/card.jpg",
-    specs: { area: "45–52 m²", bed: "King + Sofa Bed", view: "Courtyard / City" },
-    hero: "/rooms/bir-arti-bir-oda/hero.jpg",
+    cover: birArtiBirOdaImages.cover,
+    gallery: birArtiBirOdaImages.gallery,
+    isAvailable: birArtiBirOdaImages.isAvailable,
+    availabilityLabel: birArtiBirOdaImages.availabilityLabel,
+    specs: { area: "45-52 m²", bed: "King + Kanepe", view: "Avlu / Şehir" },
+    hero: birArtiBirOdaImages.hero,
     split1: {
-      imageLeft: "/rooms/bir-arti-bir-oda/split-1-left.jpg",
+      imageLeft: birArtiBirOdaImages.split1,
       textRight: "Ayrı yatak odası ve oturma alanı; aileler ve uzun kalışlar için ideal.",
     },
     split2: {
-      textLeft: "Aydınlık mekânlar, yumuşak dokular ve işlevsel mobilyalar.",
-      imageRight: "/rooms/bir-arti-bir-oda/split-2-right.jpg",
+      textLeft: "Aydınlık mekanlar, yumuşak dokular ve işlevsel mobilyalar.",
+      imageRight: birArtiBirOdaImages.split2,
     },
-    amenities: [...baseAmenities],
+    amenities: baseAmenities,
     amenitiesBanner: {
-      banner: "/rooms/bir-arti-bir-oda/amenities-banner.jpg",
-      thumb1: "/rooms/bir-arti-bir-oda/amenities-thumb-1.jpg",
-      thumb2: "/rooms/bir-arti-bir-oda/amenities-thumb-2.jpg",
-      title: "Comfortable Stays",
+      banner: birArtiBirOdaImages.banner,
+      thumb1: birArtiBirOdaImages.thumb1,
+      thumb2: birArtiBirOdaImages.thumb2,
+      title: "Uzun Kalış Konforu",
       text: "Günün temposuna göre şekillenen esnek bir konfor deneyimi.",
     },
-    offers: offersCommon,
   },
   {
-    slug: "deniz-manzarali-balkonlu-oda",
-    name: "Deniz Manzaralı Balkonlu Oda",
-    priceFrom: 229,
-    cover: "/rooms/deniz-manzarali-balkonlu-oda/card.jpg",
-    specs: { area: "28–32 m²", bed: "Queen / King", view: "Sea View • Balcony" },
-    hero: "/rooms/deniz-manzarali-balkonlu-oda/hero.jpg",
+    slug: "suit-oda",
+    name: "Suite Oda",
+    priceFrom: 259,
+    cover: suitOdaImages.cover,
+    gallery: suitOdaImages.gallery,
+    isAvailable: suitOdaImages.isAvailable,
+    availabilityLabel: suitOdaImages.availabilityLabel,
+    specs: { area: "40-45 m²", bed: "King-size", view: "Şehir / Kısmi Deniz" },
+    hero: suitOdaImages.hero,
     split1: {
-      imageLeft: "/rooms/deniz-manzarali-balkonlu-oda/split-1-left.jpg",
-      textRight: "Geniş balkon; sabah kahvesi ve akşam kokteyli için açık hava.",
+      imageLeft: suitOdaImages.split1,
+      textRight: "Geniş yaşam alanı ve ayrı oturma bölümü ile uzun konaklamalara uygun.",
     },
     split2: {
-      textLeft: "İçeride sıcak dokular, dışarıda esintili manzara; akışkan plan.",
-      imageRight: "/rooms/deniz-manzarali-balkonlu-oda/split-2-right.jpg",
+      textLeft: "Çalışma ve dinlenme alanları dengeli; sessiz ve verimli bir gün.",
+      imageRight: suitOdaImages.split2,
     },
-    amenities: [...baseAmenities],
+    amenities: baseAmenities,
     amenitiesBanner: {
-      banner: "/rooms/deniz-manzarali-balkonlu-oda/amenities-banner.jpg",
-      thumb1: "/rooms/deniz-manzarali-balkonlu-oda/amenities-thumb-1.jpg",
-      thumb2: "/rooms/deniz-manzarali-balkonlu-oda/amenities-thumb-2.jpg",
-      title: "Comfortable Stays",
-      text: "Balkonda gün doğumu, odada huzurlu atmosfer.",
+      banner: suitOdaImages.banner,
+      thumb1: suitOdaImages.thumb1,
+      thumb2: suitOdaImages.thumb2,
+      title: "Geniş ve Rahat",
+      text: "Zarif oturma alanı ve ev konforuna yaklaşan kullanışlı detaylar.",
     },
-    offers: offersCommon,
-  },
-  {
-    slug: "aile-odasi",
-    name: "Aile Odası",
-    priceFrom: 299,
-    cover: "/rooms/aile-odasi/card.jpg",
-    specs: { area: "40–48 m²", bed: "1 King + 2 Single", view: "City / Courtyard" },
-    hero: "/rooms/aile-odasi/hero.jpg",
-    split1: {
-      imageLeft: "/rooms/aile-odasi/split-1-left.jpg",
-      textRight: "Herkes için alan; çocuklar için güvenli, ebeveynler için ferah.",
-    },
-    split2: {
-      textLeft: "Yumuşak malzemeler, sağlam mobilyalar ve kolay temizlenir yüzeyler.",
-      imageRight: "/rooms/aile-odasi/split-2-right.jpg",
-    },
-    amenities: [...baseAmenities],
-    amenitiesBanner: {
-      banner: "/rooms/aile-odasi/amenities-banner.jpg",
-      thumb1: "/rooms/aile-odasi/amenities-thumb-1.jpg",
-      thumb2: "/rooms/aile-odasi/amenities-thumb-2.jpg",
-      title: "Comfortable Stays",
-      text: "Birlikte geçirilen zamanlara eşlik eden sıcak bir atmosfer.",
-    },
-    offers: offersCommon,
-  },
-  {
-    slug: "standart-oda",
-    name: "Standart Oda",
-    priceFrom: 169,
-    cover: "/rooms/standart-oda/card.jpg",
-    specs: { area: "22–25 m²", bed: "Queen / Twin", view: "City / Courtyard" },
-    hero: "/rooms/standart-oda/hero.jpg",
-    split1: {
-      imageLeft: "/rooms/standart-oda/split-1-left.jpg",
-      textRight: "Minimal ve fonksiyonel; kısa konaklamalar için ideal.",
-    },
-    split2: {
-      textLeft: "Doğal ışık, akıllı depolama ve ergonomik yerleşim.",
-      imageRight: "/rooms/standart-oda/split-2-right.jpg",
-    },
-    amenities: [...baseAmenities],
-    amenitiesBanner: {
-      banner: "/rooms/standart-oda/amenities-banner.jpg",
-      thumb1: "/rooms/standart-oda/amenities-thumb-1.jpg",
-      thumb2: "/rooms/standart-oda/amenities-thumb-2.jpg",
-      title: "Comfortable Stays",
-      text: "Sade çizgiler ve yalın materyaller.",
-    },
-    offers: offersCommon,
   },
 ];
 
-// kart sırası
-export const ROOMS_ORDER: RoomSlug[] = ROOMS.map(r => r.slug);
-export const findRoom = (slug: RoomSlug) => ROOMS.find(r => r.slug === slug);
+export const ROOMS_ORDER: RoomSlug[] = ROOMS.map((room) => room.slug);
+
+export const findRoom = (slug: RoomSlug) => ROOMS.find((room) => room.slug === slug);
