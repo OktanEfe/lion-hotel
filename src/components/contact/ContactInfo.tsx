@@ -121,8 +121,9 @@ export default function ContactInfo() {
               <span className="block text-[10px] font-medium tracking-widest text-[#111111] uppercase mb-1">
                 E-Posta Adresi
               </span>
-              <a className="text-base text-[#111111] transition-colors hover:text-[#7A1E1E]" href="mailto:Lionbutikotel@gmail.com">
-Lionbutikotel@gmail.com              </a>
+              <a className="text-base text-[#111111] transition-colors hover:text-[#7A1E1E]" href="mailto:lionhotelcinarcik@gmail.com">
+                lionhotelcinarcik@gmail.com
+              </a>
             </div>
 
             <div className="border-l border-[#7A1E1E] pl-4">
